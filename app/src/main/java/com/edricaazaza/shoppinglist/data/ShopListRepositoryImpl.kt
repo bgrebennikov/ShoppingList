@@ -7,6 +7,7 @@ import java.lang.RuntimeException
 object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopList = mutableListOf<ShopItem>()
+    private var autoIncrementId = 0
 
     override fun getShopList(): List<ShopItem> {
         return shopList.toList()
@@ -19,6 +20,7 @@ object ShopListRepositoryImpl : ShopListRepository {
     }
 
     override fun addShopItem(item: ShopItem) {
+        item.id = autoIncrementId++
         shopList.add(item)
     }
 
@@ -28,7 +30,7 @@ object ShopListRepositoryImpl : ShopListRepository {
 
     override fun editShopItem(item: ShopItem) {
         shopList.remove(shopList.find { it.id == item.id })
-        shopList.add(item)
+        addShopItem(item)
     }
 
 }
