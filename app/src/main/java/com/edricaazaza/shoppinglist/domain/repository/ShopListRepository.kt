@@ -1,10 +1,11 @@
 package com.edricaazaza.shoppinglist.domain.repository
 
+import androidx.lifecycle.LiveData
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
 
 interface ShopListRepository {
 
-    fun getShopList() : List<ShopItem>
+    fun getShopList() : LiveData<List<ShopItem>>
 
     fun getShopItemById(itemId: Int) : ShopItem
 

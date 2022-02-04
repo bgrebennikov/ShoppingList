@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="item_default_label">Покупка</string>
+    <string name="add_new_item_cd">Add new Item</string>
 </resources>

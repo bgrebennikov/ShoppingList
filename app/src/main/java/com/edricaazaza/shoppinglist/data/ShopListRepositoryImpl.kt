@@ -1,16 +1,32 @@
 package com.edricaazaza.shoppinglist.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
 import com.edricaazaza.shoppinglist.domain.repository.ShopListRepository
 import java.lang.RuntimeException
+import kotlin.random.Random
 
 object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopList = mutableListOf<ShopItem>()
+    private val shopListLiveData = MutableLiveData<List<ShopItem>>()
     private var autoIncrementId = 0
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    init {
+        for (i in 0..10000){
+            addShopItem(
+                ShopItem(
+                    name = "item: $i",
+                    count = i,
+                    enabled = Random.nextBoolean()
+                )
+            )
+        }
+    }
+
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLiveData
     }
 
     override fun getShopItemById(itemId: Int): ShopItem {
@@ -22,10 +38,12 @@ object ShopListRepositoryImpl : ShopListRepository {
     override fun addShopItem(item: ShopItem) {
         if(item.id == ShopItem.UNDEFINED_ID) item.id = autoIncrementId++
         shopList.add(item)
+        updateLiveData()
     }
 
     override fun removeShopItem(item: ShopItem) {
         shopList.remove(item)
+        updateLiveData()
     }
 
     override fun editShopItem(item: ShopItem) {
@@ -37,7 +55,11 @@ object ShopListRepositoryImpl : ShopListRepository {
         shopList.find { it.id == item.id }.apply {
             this!!.enabled = !this.enabled
         }
+        updateLiveData()
+    }
 
+    private fun updateLiveData(){
+        shopListLiveData.value = shopList.toList()
     }
 
 }
