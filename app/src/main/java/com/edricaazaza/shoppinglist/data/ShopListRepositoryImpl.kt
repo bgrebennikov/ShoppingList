@@ -14,12 +14,12 @@ object ShopListRepositoryImpl : ShopListRepository {
     private var autoIncrementId = 0
 
     init {
-        for (i in 0..10000){
+        for (i in 0..100){
             addShopItem(
                 ShopItem(
                     name = "item: $i",
                     count = i,
-                    enabled = Random.nextBoolean()
+                    enabled = true
                 )
             )
         }

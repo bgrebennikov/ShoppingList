@@ -3,6 +3,7 @@ package com.edricaazaza.shoppinglist.presentation.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.edricaazaza.shoppinglist.databinding.ItemShopDisabledBinding
 import com.edricaazaza.shoppinglist.databinding.ItemShopEnabledBinding
@@ -13,18 +14,16 @@ import java.lang.IllegalArgumentException
 
 class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var count = 0
+    var clickListener: (() -> Unit)? = null
+    var longClickListener : ((ShopItem) -> Unit)? = null
 
     var shopItemsList = listOf<ShopItem>()
         set(value) {
             field = value
-            notifyDataSetChanged()
         }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        Log.i("MESSAGE", "ViewHolder's created: ${count++}")
 
         return when (viewType) {
             ITEM_TYPE_ENABLED ->
@@ -50,10 +49,21 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
-            is EnabledViewHolder -> holder.bind(shopItemsList[position])
-            is DisabledViewHolder -> holder.bind(shopItemsList[position])
+        val currentItem = shopItemsList[position]
+        when (holder) {
+            is EnabledViewHolder -> holder.bind(currentItem)
+            is DisabledViewHolder -> holder.bind(currentItem)
         }
+
+        holder.itemView.setOnClickListener {
+            clickListener?.invoke()
+        }
+
+        holder.itemView.setOnLongClickListener {
+            longClickListener?.invoke(currentItem)
+            true
+        }
+
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -61,4 +71,5 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = shopItemsList.size
+
 }

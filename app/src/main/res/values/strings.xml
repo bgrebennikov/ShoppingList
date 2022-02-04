@@ -2,4 +2,5 @@
     <string name="app_name">ShoppingList</string>
     <string name="item_default_label">Покупка</string>
     <string name="add_new_item_cd">Add new Item</string>
+    <string name="main_on_click_prompt">Press and hold for mark this item as completed</string>
 </resources>
