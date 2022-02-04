@@ -20,17 +20,24 @@ object ShopListRepositoryImpl : ShopListRepository {
     }
 
     override fun addShopItem(item: ShopItem) {
-        item.id = autoIncrementId++
+        if(item.id == ShopItem.UNDEFINED_ID) item.id = autoIncrementId++
         shopList.add(item)
     }
 
-    override fun removeShopItem(itemId: Int) {
-        shopList.removeAt(itemId)
+    override fun removeShopItem(item: ShopItem) {
+        shopList.remove(item)
     }
 
     override fun editShopItem(item: ShopItem) {
         shopList.remove(shopList.find { it.id == item.id })
         addShopItem(item)
+    }
+
+    override fun changeEnableState(item: ShopItem) {
+        shopList.find { it.id == item.id }.apply {
+            this!!.enabled = !this.enabled
+        }
+
     }
 
 }
