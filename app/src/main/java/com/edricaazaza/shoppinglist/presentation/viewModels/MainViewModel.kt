@@ -25,4 +25,16 @@ class MainViewModel : ViewModel() {
         shopList.postValue(repository.getShopList())
     }
 
+    fun editShopItem(item : ShopItem){
+        repository.editShopItem(item)
+    }
+
+    fun removeShopItem(item : ShopItem){
+        repository.removeShopItem(item)
+    }
+
+    fun changeEnableState(item : ShopItem){
+        repository.changeEnableState(item)
+    }
+
 }

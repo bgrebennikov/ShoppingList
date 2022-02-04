@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         viewModel.shopList.observe(this, Observer {
-
+            Log.i("MESSAGE", it.toString())
         })
 
 

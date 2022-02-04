@@ -3,7 +3,7 @@ package com.edricaazaza.shoppinglist.domain.pojo
 data class ShopItem(
     val name: String,
     val count: Int,
-    val enabled: Boolean,
+    var enabled: Boolean,
 
     var id: Int = UNDEFINED_ID
 ) {
