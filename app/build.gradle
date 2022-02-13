@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -16,7 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 
@@ -50,7 +51,8 @@ dependencies {
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     // alternatively - just ViewModel
-    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version" // For Kotlin use viewmodel-ktx
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+    // For Kotlin use viewmodel-ktx
     // alternatively - just LiveData
     implementation "android.arch.lifecycle:livedata:$lifecycle_version"
     // alternatively - Lifecycles only (no ViewModel or LiveData).
@@ -58,5 +60,15 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
 
     implementation "androidx.fragment:fragment-ktx:1.1.0"
+
+    def roomVersion = "2.4.1"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomVersion"
 
 }
