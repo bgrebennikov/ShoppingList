@@ -13,17 +13,7 @@ object ShopListRepositoryImpl : ShopListRepository {
     private val shopListLiveData = MutableLiveData<List<ShopItem>>()
     private var autoIncrementId = 0
 
-    init {
-        for (i in 0..100){
-            addShopItem(
-                ShopItem(
-                    name = "item: $i",
-                    count = i,
-                    enabled = true
-                )
-            )
-        }
-    }
+
 
     override fun getShopList(): LiveData<List<ShopItem>> {
         return shopListLiveData

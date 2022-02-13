@@ -1,7 +1,9 @@
 package com.edricaazaza.shoppinglist.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.edricaazaza.shoppinglist.TAG
 import com.edricaazaza.shoppinglist.data.ShopListRepositoryImpl
 import com.edricaazaza.shoppinglist.domain.EditShopItemUseCase
 import com.edricaazaza.shoppinglist.domain.GetShopListUseCase
@@ -15,8 +17,9 @@ class MainViewModel : ViewModel() {
     private val removeShopItemUseCase = GetShopListUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
 
-    val shopList = getShopListUseCase.getShopList()
 
+
+    val shopList = getShopListUseCase.getShopList()
 
     fun editShopItem(item : ShopItem){
         repository.editShopItem(item)
