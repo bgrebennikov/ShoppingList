@@ -3,4 +3,8 @@
     <string name="item_default_label">Покупка</string>
     <string name="add_new_item_cd">Add new Item</string>
     <string name="main_on_click_prompt">Press and hold for mark this item as completed</string>
+    <string name="input_hint_name">Name</string>
+    <string name="item_hint_count">Count</string>
+    <string name="input_hint_count">Count</string>
+    <string name="button_add_item_text">Add Item</string>
 </resources>

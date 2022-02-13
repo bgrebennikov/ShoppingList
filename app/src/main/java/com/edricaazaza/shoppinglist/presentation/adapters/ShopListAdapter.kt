@@ -15,11 +15,12 @@ import java.lang.IllegalArgumentException
 class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var clickListener: (() -> Unit)? = null
-    var longClickListener : ((ShopItem) -> Unit)? = null
+    var longClickListener: ((ShopItem) -> Unit)? = null
 
     var shopItemsList = listOf<ShopItem>()
         set(value) {
             field = value
+            notifyItemInserted(this.itemCount+1)
         }
 
 
