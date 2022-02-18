@@ -15,6 +15,6 @@ interface ShopListRepository {
 
     fun editShopItem(item: ShopItem)
 
-    fun changeEnableState(item : ShopItem)
+    fun changeEnableState(item: ShopItem)
 
 }

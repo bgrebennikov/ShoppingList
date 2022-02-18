@@ -2,6 +2,7 @@ package com.edricaazaza.shoppinglist.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
 import com.edricaazaza.shoppinglist.domain.repository.ShopListRepository
@@ -14,8 +15,10 @@ class ShopListRepositoryImpl(
     private val mapper = ShopListMapper()
 
     override fun getShopList(): LiveData<List<ShopItem>> {
-        return Transformations.map(shopListDao.getShopList()) {
-            mapper.mapListDbModelToEntity(it)
+        return MediatorLiveData<List<ShopItem>>().apply {
+            addSource(shopListDao.getShopList()){
+                value = mapper.mapListDbModelToEntity(it)
+            }
         }
     }
 
@@ -36,7 +39,7 @@ class ShopListRepositoryImpl(
     }
 
     override fun changeEnableState(item: ShopItem) {
-
+        addShopItem(item.copy(enabled = !item.enabled))
     }
 
 

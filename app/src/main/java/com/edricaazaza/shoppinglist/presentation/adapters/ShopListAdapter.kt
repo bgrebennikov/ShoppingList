@@ -3,8 +3,10 @@ package com.edricaazaza.shoppinglist.presentation.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.edricaazaza.shoppinglist.TAG
 import com.edricaazaza.shoppinglist.databinding.ItemShopDisabledBinding
 import com.edricaazaza.shoppinglist.databinding.ItemShopEnabledBinding
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
@@ -19,8 +21,10 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var shopItemsList = listOf<ShopItem>()
         set(value) {
+            val callback = ShopListDiffCallback(shopItemsList, value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
             field = value
-            notifyItemInserted(this.itemCount+1)
         }
 
 
@@ -50,6 +54,8 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+
         val currentItem = shopItemsList[position]
         when (holder) {
             is EnabledViewHolder -> holder.bind(currentItem)

@@ -11,7 +11,7 @@ data class ShopItem(
     var id: Int = UNDEFINED_ID
 ) : AdapterListItemType {
     companion object {
-        const val UNDEFINED_ID = -1
+        const val UNDEFINED_ID = 0
     }
 
     override fun getType(): Int {

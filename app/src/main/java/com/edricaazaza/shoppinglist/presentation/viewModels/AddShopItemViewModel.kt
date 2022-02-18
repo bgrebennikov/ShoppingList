@@ -1,6 +1,8 @@
 package com.edricaazaza.shoppinglist.presentation.viewModels
 
+import android.app.Application
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.edricaazaza.shoppinglist.data.ShopListRepositoryImpl
@@ -8,9 +10,9 @@ import com.edricaazaza.shoppinglist.domain.AddShopItemUseCase
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
 import kotlinx.coroutines.delay
 
-class AddShopItemViewModel : ViewModel() {
+class AddShopItemViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ShopListRepositoryImpl
+    private val repository = ShopListRepositoryImpl(application)
     private val addShopItemUseCase = AddShopItemUseCase(repository)
 
     private val nameInputError = MutableLiveData<Unit>()

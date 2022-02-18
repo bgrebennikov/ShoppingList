@@ -24,19 +24,19 @@ class AddShopItemActivity : AppCompatActivity() {
         binding = ActivityAddShopItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.itemName.addTextChangedListener(object : CustomTextWatcher() {
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                super.onTextChanged(p0, p1, p2, p3)
-//                viewModel.userInputName(p0.toString())
-//            }
-//        })
-//
-//        binding.itemCount.addTextChangedListener(object : CustomTextWatcher() {
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                super.onTextChanged(p0, p1, p2, p3)
-//                viewModel.userInputCount(p0.toString())
-//            }
-//        })
+        binding.itemName.addTextChangedListener(object : CustomTextWatcher() {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                super.onTextChanged(p0, p1, p2, p3)
+                viewModel.userInputName(p0.toString())
+            }
+        })
+
+        binding.itemCount.addTextChangedListener(object : CustomTextWatcher() {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                super.onTextChanged(p0, p1, p2, p3)
+                viewModel.userInputCount(p0.toString())
+            }
+        })
 
         binding.addItemButton.setOnClickListener {
             with(binding){
@@ -47,5 +47,7 @@ class AddShopItemActivity : AppCompatActivity() {
         }
 
     }
+
+
 
 }

@@ -16,6 +16,7 @@ import com.edricaazaza.shoppinglist.databinding.ActivityMainBinding
 import com.edricaazaza.shoppinglist.domain.pojo.ShopItem
 import com.edricaazaza.shoppinglist.presentation.adapters.AdapterListItemType
 import com.edricaazaza.shoppinglist.presentation.adapters.AdapterListItemType.Companion.MAX_POOL_SIZE
+import com.edricaazaza.shoppinglist.presentation.adapters.ShopItemSwipeCallback
 import com.edricaazaza.shoppinglist.presentation.adapters.ShopListAdapter
 import com.edricaazaza.shoppinglist.presentation.viewModels.MainViewModel
 
@@ -56,25 +57,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupOnSwipeCallback() {
-        val callback = object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
+        val callback = ShopItemSwipeCallback()
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.removeShopItem(shopListAdapter.shopItemsList[viewHolder.adapterPosition])
-                shopListAdapter.notifyItemRemoved(viewHolder.adapterPosition)
-            }
-
+        callback.onRemoveListener = { position ->
+            viewModel.removeShopItem(shopListAdapter.shopItemsList[position])
         }
-
         ItemTouchHelper(callback).attachToRecyclerView(binding.mainRecycler)
     }
 
@@ -89,7 +76,6 @@ class MainActivity : AppCompatActivity() {
 
         shopListAdapter.longClickListener = { item ->
             viewModel.changeEnableState(item)
-            shopListAdapter.notifyItemChanged(shopListAdapter.shopItemsList.indexOf(item))
         }
 
         binding.addItemButton.setOnClickListener {

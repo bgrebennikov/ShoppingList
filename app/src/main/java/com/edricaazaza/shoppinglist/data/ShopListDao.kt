@@ -26,4 +26,6 @@ interface ShopListDao {
     fun getShopItemById(itemId: Int): ShopItemDbModel
 
 
+
+
 }
